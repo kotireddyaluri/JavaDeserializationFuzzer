@@ -3,6 +3,9 @@ package burp;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -42,7 +45,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 {
 	private JPanel MainPane;
 	private JTextField textField,filetextField;
-	private JButton generatbtn,Header_add,Header_remv,Header_update,Param_add,Param_remv,Param_update,filechoosebtn;
+	private JButton generatbtn,Header_add,Header_remv,Header_update,Param_add,Param_remv,Param_update,filechoosebtn,Header_cptoclipbtn;
 	private DefaultTableModel Header_dtm,Param_dtm;
 	private JTable Header_Tbl,Param_Tbl;
 	private JScrollPane Header_scroll,command_scroll,Param_scroll;
@@ -248,12 +251,32 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 				Header_add=new JButton("Add");
 				Header_remv=new JButton("Remove");
 				Header_update=new JButton("Update");
+				Header_cptoclipbtn=new JButton("CopyAll Payloads");
 				Header_dtm=new DefaultTableModel();
 				Header_Tbl=new JTable(Header_dtm);
 				Header_dtm.addColumn("Payload type");
 				Header_dtm.addColumn("Payload Value");
 				Header_scroll=new JScrollPane(Header_Tbl);
 				Header_scroll.setPreferredSize(new Dimension(500,200));
+				
+				Header_cptoclipbtn.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+						Header_Tbl.getValueAt(0, 1);
+						StringBuilder sb=new StringBuilder();
+						for(int i=0;i<Header_Tbl.getRowCount();i++)
+						{
+							sb.append(Header_Tbl.getValueAt(i, 1));
+							sb.append("\n");
+						}
+			            
+						cb.setContents(new StringSelection(sb.toString()), new StringSelection(sb.toString()));
+					}
+				});
+				
 				
 				Param_add=new JButton("Add");
 				Param_remv=new JButton("Remove");
@@ -280,6 +303,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 				HeaderPan2.add(Header_add);
 				HeaderPan2.add(Header_remv);
 				HeaderPan2.add(Header_update);
+				HeaderPan2.add(Header_cptoclipbtn);
 				
 				HeaderPan.add(HeaderPan1);
 				HeaderPan.add(HeaderPan2);
@@ -441,7 +465,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 		 				{
 		 					if(commands.get(i).equalsIgnoreCase("URLDNS"))
 		 					{
-		 						//String cmd = "java -jar C:\\Users\\xxxxx\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
+		 						//String cmd = "java -jar C:\\Users\\xxxx\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
 		 						String cmd = "java -jar ysoserial-master-v0.0.5.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
 		 						execute("URLDNS",cmd);
 		 					}
